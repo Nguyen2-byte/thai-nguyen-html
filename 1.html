@@ -1,0 +1,436 @@
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Giới Thiệu Cá Nhân</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; background-color: #f8f8f8; }
+        /* Header & Topbar */
+        .topbar { background-color: #4CAF50; padding: 10px; text-align: center; }
+        .topbar marquee { font-size: 18px; font-weight: bold; color: white; }
+        /* Banner */
+        .banner { width: 100%; height: 300px; overflow: hidden; }
+        .banner img { width: 100%; height: auto; object-fit: cover; }
+        /* Main Menu */
+        nav { background-color: #333; padding: 12px 0; text-align: center; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 16px; transition: all 0.3s ease; }
+        nav a:hover { color: #4CAF50; }
+        /* Container */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        /* Template: Green Border for Main Content */
+        .main-content {
+            border-left: 5px solid #4CAF50;  
+            padding-left: 20px;
+            margin-top: 30px;
+            display: none; 
+        }
+        /* Bài viết về kết quả học tập */
+        .results-table {
+            width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+        }
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        .results-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        tbody tr:hover {
+            background-color: lightgreen; 
+            cursor: pointer; 
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: burlywood;
+            color: rgb(69, 0, 0);
+        }
+        th[colspan="2"] {
+            width: 40%; 
+        }
+        tr:nth-child(even) {
+            background-color: #f0f4ff;
+        }
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        /* Form Styling */
+        .info-form input, .info-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+        .info-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .info-form button:hover {
+            background-color: #45a049;
+        }
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* Flexbox for "About Me" and "Pleiku" section */
+        .home-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        /* Phần About Me */
+        .about-me {
+            flex: 1;
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .about-me img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+        }
+        /* Phần Pleiku */
+        .pleiku {
+            flex: 1;
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .about-me h3, .pleiku h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .about-me p, .pleiku p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        /* Cửa sổ hiển thị khi click vào ảnh trong Blogs */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            margin: 15% auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TopBar -->
+    <header class="topbar">
+        <marquee>HÃY PHẤN ĐẤU VÀ NỔ LỰC </marquee>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner">
+        <img src="addien.png" alt="ảnh đại diện">
+    </section>
+
+    <!-- Main Menu -->
+    <nav>
+        <a href="javascript:void(0);" onclick="showContent('home')">Trang chủ</a>
+        <a href="javascript:void(0);" onclick="showContent('info')">Thông tin cá nhân</a>
+        <a href="javascript:void(0);" onclick="showContent('blogs')">Blogs</a>
+        <a href="javascript:void(0);" onclick="showContent('results')">Kết quả học tập</a>
+        <a href="javascript:void(0);" onclick="showContent('gallery')">Gallery</a>
+    </nav>
+
+    <!-- Trang chủ -->
+    <section id="home" class="container main-content">
+        <div class="home-content">
+            <!-- Phần About Me -->
+            <article class="about-me">
+                <h3>ABOUT ME</h3>
+                <img src="aboutme.jpg" alt="bài viết nổi bật" />
+                <p><i>TRÀ THÁI NGUYÊN PD11738</i></p> 
+            </article>
+
+            <!-- Phần Pleiku -->
+            <article class="pleiku" onclick="showPleikuContent()">
+                <h3>PLEIKU</h3>
+                <img src="bai2.webp" alt="bai 2" style="width: 100%;" id="pleikuImage"/>
+                <p><i>Ngày đăng: 05/03/2025</i></p>
+                <p id="pleiku-short-content">Du lịch đến cao nguyên Pleiku...</p>
+            </article>
+        </div>
+        <!-- Cửa sổ modal cho phần Pleiku -->
+<div id="modal-pleiku" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePleikuModal()">&times;</span>
+        <img src="bai2.webp" alt="bai 2" style="width: 100%;height: 50%;" id="pleikuImage"/>
+        <p><i>Ngày đăng: 05/03/2025</i></p>
+        <p id="pleiku-short-content">Biển Hồ Pleiku trong veo – điểm đến hot nhất Gia Lai mùa hè này
+            
+           
+           Biển Hồ Pleiku là một điểm đến hot nhất Gia Lai trong mùa hè này nếu bạn muốn tìm một điểm đến hoang sơ, bình dị và trong veo, mát lành.
+           
+           Biển Hồ Pleiku hay còn được gọi với những tên gọi khác là Biển Hồ, hồ T’Nưng… thuộc địa phận của thành phố Pleiku, tỉnh Gia Lai. Đây là một điểm đến lý tưởng ở Gia Lai không thể bỏ qua khi du lịch miền phố núi thơ mộng này.</p>
+    </div>
+</div>
+
+    </section>
+
+    <!-- Thông tin cá nhân -->
+    <section id="info" class="container main-content">
+        <h2>Thông Tin Cá Nhân</h2>
+        <form class="info-form">
+            <label><b>Họ và Tên:</b></label>
+            <input type="text" placeholder="Nhập họ và tên của bạn" required>
+            <label><b>Giới tính:</b></label>
+            <input type="text" placeholder="Giới tính của bạn" required>
+            <label><b>Trường đang học:</b></label>
+            <input type="text" placeholder="Trường bạn học" required>
+            <label><b>Mã sinh viên:</b></label>
+            <input type="text" placeholder="Mã sinh viên" required>
+            <label><b>Email:</b></label>
+            <input type="email" placeholder="Email của bạn" required>
+            <label><b>Số điện thoại:</b></label>
+            <input type="tel" placeholder="Số điện thoại" required>
+            <label><b>Sở thích:</b></label>
+            <input type="text" placeholder="Sở thích của bạn" required>
+            <label><b>Màu sắc yêu thích:</b></label>
+            <input type="color" id="color" placeholder="Chọn màu yêu thích" onchange="updateColorBox()">
+            <div id="color-box" class="color-box">Chưa chọn màu</div>
+            <label><b>Hình ảnh đại diện:</b></label>
+            <input type="file" accept="image/*">
+            <label><b>Quê quán:</b></label>
+            <input type="text" placeholder="Quê quán của bạn" required>
+            <label><b>Chuyên ngành:</b></label>
+            <div>
+            <select id="specialization" onchange="updateSpecialization()">
+                <option value="web">Lập trình web</option>
+                <option value="game">Lập trình game</option>
+                <option value="software">Ứng dụng phần mềm</option>
+            </select>
+        </div>
+            <label><b>Ngôn ngữ lập trình đã biết:</b></label>
+            <div>
+                <input type="radio" name="language" value="java" id="java"> Java
+                <input type="radio" name="language" value="cpp" id="cpp"> C++
+                <input type="radio" name="language" value="php" id="php"> PHP
+            </div>
+            <label><b>Kinh nghiệm chuyên ngành:</b></label>
+            <textarea placeholder="Kinh nghiệm chuyên ngành của bạn" required></textarea>
+            <button type="submit">Gửi Thông Tin</button>
+        </form>
+    </section>
+
+  <!-- Blogs -->
+<section id="blogs" class="container main-content">
+    <h2>Blogs</h2>
+    <div>
+        <!-- Tạo các ảnh cho các bài viết -->
+        <article class="blog-item">
+            <img src="conan11.jpg" alt="Bài viết 1" onclick="openModal('modal1')" style="width: 40%">
+        </article>
+        <article class="blog-item">
+            <img src="conan2.jpg" alt="Bài viết 2" onclick="openModal('modal2')" style="width: 40%;">
+        </article>
+        <article class="blog-item">
+            <img src="conan3.jpg" alt="Bài viết 3" onclick="openModal('modal3')" style="width: 40%;">
+        </article>
+       
+    </div>
+
+    <!-- Modal for each Blog -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <h3>Review 1</h3>
+            <p>Sự mâu thuẫn giữa đạo đức và quyền lực
+                Nhiều vụ án trong truyện mang đến những bài học về đạo đức, sự hy sinh và những lựa chọn khó khăn. 
+                
+                Conan không chỉ là một thám tử mà còn là người đưa ra quyết định giữa cái thiện và cái ác.
+                
+                Tóm tắt cốt truyện Conan và các nhân vật chính đã mang đến cho bạn cái nhìn tổng quan về hành trình phiêu lưu đầy ly kỳ và cảm xúc của Shinichi Kudo và những người bạn. 
+                
+                Hy vọng bài viết này sẽ giúp bạn hiểu rõ hơn về thế giới đầy bí ẩn của Conan và các nhân vật đáng nhớ trong truyện.</p>
+        </div>
+    </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <h3>Review 2</h3>
+            <p>Conan bắt đầu hành trình của mình bằng việc sống cùng cô bé Ai Haibara, người cũng đã từng là một thành viên của tổ chức tội phạm.
+
+                Các vụ án đáng chú ý
+                Bên cạnh các vụ án giết người đầy kịch tính, Conan cũng đối mặt với nhiều thử thách khác nhau, từ các vụ trộm cắp đến những âm mưu phức tạp. 
+                
+                Những vụ án này không chỉ là thách thức cho khả năng suy luận của Conan mà còn mang lại cho người đọc những bài học về đạo đức và nhân cách.</p>
+        </div>
+    </div>
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <h3>Review 3</h3>
+            <p>Ran là bạn gái của Shinichi Kudo và cũng là một trong những nhân vật chính.
+
+                Kogoro Mouri
+                Kogoro Mouri, cha của Ran, là một thám tử tư nhưng thường thất bại trong các vụ án. 
+                
+                Conan thường phải giúp ông giải quyết vụ án và nhận công lao cho những gì Kogoro làm. Mặc dù có phần lười biếng và hơi vụng về, nhưng Kogoro là một nhân vật đáng yêu và hài hước trong câu chuyện.</p>
+        </div>
+</section>
+
+    <!-- Kết quả học tập -->
+    <section id="results" class="container main-content">
+        <h2>Kết quả học tập</h2>
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Số thứ tự</th>
+                    <th rowspan="2">Môn học</th>
+                    <th colspan="2">Điểm thành phần</th>
+                    <th rowspan="2">Điểm tổng kết</th>
+                </tr>
+                <tr>
+                    <th>Điểm giữa kỳ</th>
+                    <th>Điểm cuối kỳ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Toán</td><td>8</td><td>9</td><td>8.5</td></tr>
+                <tr><td>2</td><td>Tin Học</td><td>7</td><td>9</td><td>7</td></tr>
+                <tr><td>3</td><td>Kỹ Năng Học Tập</td><td>8</td><td>8</td><td>9</td></tr>
+                <tr><td>4</td><td>Tiếng Anh 1,1</td><td>7</td><td>8</td><td>7.5</td></tr>
+                <tr><td>5</td><td>Nhập Môn</td><td>7</td><td>8</td><td>9</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+   <!-- Gallery -->
+<section id="gallery" class="container main-content">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+        <!-- Ảnh mới thêm vào -->
+        <div class="gallery-item">
+            <img src="nguyen1.jpg" alt="Image 1" style="width: 400;height: 315;">
+        </div>
+        <div class="gallery-item">
+            <img src="nguyen2.jpg" alt="Image 2" style="width: 400;height: 300;">
+        </div>
+        <div class="gallery-item">
+            <img src="nguyen1.jpg" alt="Image 3" style="width: 300;height: 300;">
+        </div>
+        <div class="gallery-item">
+            <img src="nguyen2.jpg" alt="Image 5" style="width: 400;height: 300;">
+        </div>
+        <div class="gallery-item">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/7WGBYVa2YR4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Thông tin người lập trang web:</strong> Trà Thái Nguyên</p>
+        <p><strong>Thời gian xuất bản:</strong> 01 Tháng 03, 2025</p>
+        <p><strong>Liên hệ:</strong> 
+            <a href="tel:+0362759729">SĐT: 0362759729</a> |
+            <a href="https://www.facebook.com/thai.nguyen.305990">Facebook</a> |
+            <a href="https://twitter.com/nguyenvana">Twitter</a> |
+            <a href="https://www.tiktok.com/@nguyen_mfl?_r=1&_d=secCgYIASAHKAESPgo8jaNdkkTQvT6rhyQta3vFTNuXXBbKoeynNuHJiSTg1ObgAgtTI008Cmu1iPcqXyg%2BgjFkg6ic2QIrgsM4GgA%3D&checksum=e6009be76607c404832a9ca59a8b45190a27dbeac4a309dfb42681a7826174eb&sec_uid=MS4wLjABAAAAAyN56rBIXmicX0Km2kevipm0ZAATdi4vswsSAsgPRpnbfBrLv49APA1Qz-0dEi8a&sec_user_id=MS4wLjABAAAAAyN56rBIXmicX0Km2kevipm0ZAATdi4vswsSAsgPRpnbfBrLv49APA1Qz-0dEi8a&share_app_id=1180&share_author_id=7097972072143488001&share_link_id=A840D7CA-BAA4-4DED-A490-7ECDF9A86B27&sharer_language=vi&social_share_type=4&source=h5_t&timestamp=1741203735&tt_from=copy&u_code=e1kbk6061jf6fd&ug_btm=b8727%2Cb0&user_id=7097972072143488001&utm_campaign=client_share&utm_medium=ios&utm_source=copy">TikTok</a>
+        </p>
+    </footer>
+
+    <script>
+        function showContent(section) {
+            const sections = document.querySelectorAll('.main-content');
+            sections.forEach(function(sectionElement) {
+                sectionElement.style.display = 'none';
+            });
+            document.getElementById(section).style.display = 'block';
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = "block";
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        function showPleikuContent() {
+    const pleikuImage = document.getElementById('pleikuImage');
+    const pleikuContent = document.getElementById('pleiku-short-content');
+    
+    // Cập nhật ảnh và nội dung chi tiết khi click vào ảnh
+    const pleikuFullImage = "pleiku_full_image.jpg"; // Đường dẫn hình ảnh chi tiết Pleiku
+    const pleikuFullContent = "Pleiku, nơi có những con đường đẹp, không gian rộng lớn, không khí trong lành..."; // Nội dung chi tiết về Pleiku
+    
+    // Cập nhật nội dung và ảnh trong modal
+    document.getElementById('modal-pleiku').style.display = 'block';
+    document.getElementById('modal-pleiku-img').src = pleikuFullImage;
+    document.getElementById('modal-pleiku-content').innerHTML = pleikuFullContent;
+}
+
+// Đóng cửa sổ modal
+function closePleikuModal() {
+    document.getElementById('modal-pleiku').style.display = 'none';
+}
+
+    </script>
+
+</body>
+</html>
